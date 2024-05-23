@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 import route from './src/routes';
 import bodyParser from 'body-parser';
+import cron from 'node-cron';
+import {createOrUpdateAnalytics} from './src/repositories/analyticRepository';
 
 const PORT = 4000;
 
@@ -20,3 +22,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 route(app);
 
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));
+
+cron.schedule('0 0 * * *', async () => {
+  console.log('running a task every midnight');
+  await createOrUpdateAnalytics();
+});
