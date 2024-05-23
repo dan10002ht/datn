@@ -1,0 +1,52 @@
+body {
+  margin: 0;
+}
+
+.ant-breadcrumb-link {
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.ReactVirtualized__Table__headerColumn {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+
+.ReactVirtualized__Table__headerTruncatedText {
+  width: 100%;
+  text-align: center;
+}
+
+.ReactVirtualized__Table__sortableHeaderIcon {
+  display: none;
+}
+
+.ReactVirtualized__Table__headerColumn,
+.ReactVirtualized__Table__rowColumn {
+  margin: 0 !important;
+  height: 100%;
+  border-right: 1px solid #e3e3e3;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.ReactVirtualized__Table__headerColumn:first-of-type,
+.ReactVirtualized__Table__rowColumn:first-of-type {
+  margin: 0 !important;
+  height: 100%;
+}
+
+.ReactVirtualized__Table__headerTruncatedText {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .ant-input-affix-wrapper {
+    border: none;
+    height: 100%;
+    font-size: 14px;
+    font-weight: normal;
+  }
+}
