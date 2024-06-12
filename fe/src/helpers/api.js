@@ -7,7 +7,7 @@ export async function api({
   params = {},
   options = {},
   clientConfig = {
-    baseURL: "http://localhost:4000/api",
+    baseURL: `${process.env.VITE_BASE_URL}/api`,
     timeout: 60000,
   },
 }) {
