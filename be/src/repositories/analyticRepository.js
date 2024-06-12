@@ -8,7 +8,7 @@ const collection = db.collection('analytics');
 export const TYPE_CHECKIN = 'check-in';
 export const TYPE_CHECKOUT = 'check-out';
 
-const createOrUpdateAnalytics = async () => {
+export const createOrUpdateAnalytics = async () => {
   const currentDate = new Date();
   const docs = await collection
     .where('startDate', '<=', currentDate)
