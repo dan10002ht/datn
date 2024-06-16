@@ -6,7 +6,7 @@ const router = new Router();
 router.get('/', timeController.getDocs);
 router.get('/daily', timeController.getDailyAnalytics);
 router.get('/monthly', timeController.getMonthlyAnalytics);
-router.get('working-hours/:period', timeController.getWorkingHours);
+router.get('/working-hours/:period', timeController.getWorkingHours);
 router.post('/:userId', timeController.mark);
 router.get('/:userId', timeController.getOne);
 
