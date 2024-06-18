@@ -41,8 +41,6 @@ export async function api({
   options = {},
 }) {
   const token = localStorage.getItem("token") || "";
-  console.log(token);
-  //   const idToken = await auth.currentUser.getIdToken(false);
   return client
     .request({
       ...options,
