@@ -3,11 +3,20 @@ import userRoutes from './userRoutes';
 import timeRoutes from './timeRoutes';
 import logRoutes from './logRoutes';
 import cronRoutes from './cronRoutes';
+import tokenRoutes from './tokenRoutes';
+import {authenticateToken} from '../middlewares/auth';
 
 const router = new Router();
 
 export default function route(app) {
   app.use('/api', router);
+  router.use((req, res, next) => {
+    if (req.path.includes('token')) {
+      return next();
+    }
+    return authenticateToken(req, res, next);
+  });
+  router.use('/token', tokenRoutes);
   router.use('/cron', cronRoutes);
   router.use('/user', userRoutes);
   router.use('/time', timeRoutes);
