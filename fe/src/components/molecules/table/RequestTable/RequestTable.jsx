@@ -14,6 +14,8 @@ const RequestTable = () => {
     apiUrl: "/user/request",
   });
 
+  console.log({ data });
+
   const columns = useMemo(
     () => [
       {

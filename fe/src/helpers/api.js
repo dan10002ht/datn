@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const client = axios.create({
+export const client = axios.create({
   baseURL: `${import.meta.env.VITE_BASE_URL}/api`,
   timeout: 60000,
 });
@@ -18,6 +18,7 @@ const handleGetToken = async () => {
     data: { apiKey: import.meta.env.VITE_SECRET_KEY },
   });
   localStorage.setItem("token", data.token);
+  return data.token;
 };
 
 client.interceptors.response.use(
@@ -26,8 +27,12 @@ client.interceptors.response.use(
   },
   (error) => {
     console.log({ error });
+    const originalRequest = error.config;
     if ([401, 403].includes(error.response.status)) {
-      handleGetToken().then((x) => console.log(x));
+      handleGetToken().then((token) => {
+        originalRequest.headers["Authorization"] = token;
+        return axios(originalRequest);
+      });
     }
     return error;
   }

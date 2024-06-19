@@ -40,18 +40,6 @@ const navItems = [
       },
     ],
   },
-  {
-    key: "/salary",
-    label: "Tính lương",
-    url: "/salary",
-    breadCrumb: [
-      ...defaultPath,
-      {
-        label: "Tính lương",
-        path: "salary",
-      },
-    ],
-  },
 ];
 
 const AppLayout = ({ children }) => {
@@ -60,7 +48,6 @@ const AppLayout = ({ children }) => {
   } = theme.useToken();
 
   const navigate = useNavigate();
-  console.log(window.location.pathname);
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider

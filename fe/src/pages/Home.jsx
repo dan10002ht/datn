@@ -6,8 +6,14 @@ import WhoWorking from "../components/molecules/WhoWorking";
 import WorkingTime from "../components/molecules/WorkingTime";
 import WorkerCount from "../components/molecules/WorkerCount";
 import { Typography } from "antd";
+import { client } from "../helpers/api";
 
 const Home = () => {
+  const [file, setFile] = useState();
+
+  const handleUpload = async () => {
+    return client.post("/api/upload", formData);
+  };
   return (
     <>
       <div className="flex justify-between mb-10">
@@ -36,6 +42,29 @@ const Home = () => {
         <WorkingTime />
         <WorkerCount />
       </div>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+        enctype="multipart/form-data"
+      >
+        <div className="mb-3">
+          <div className="form-file custom-file">
+            <input
+              className="form-control"
+              type="file"
+              id="formFile"
+              name="image"
+              multiple
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+            <label className="form-file-label" for="image"></label>
+          </div>
+        </div>
+        <button type="submit" className="btn btn-success">
+          Upload
+        </button>
+      </form>
     </>
   );
 };
