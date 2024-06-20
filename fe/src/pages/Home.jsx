@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import RequestBox from "../components/molecules/RequestBox";
 import HistoryBox from "../components/molecules/HistoryBox";
 import TimeChart from "../components/molecules/TimeChart";
@@ -12,7 +12,10 @@ const Home = () => {
   const [file, setFile] = useState();
 
   const handleUpload = async () => {
-    return client.post("/api/upload", formData);
+    const formData = new FormData();
+    formData.append("image", file);
+    const res = client.post("/api/upload", formData);
+    console.log({ res });
   };
   return (
     <>
@@ -46,7 +49,6 @@ const Home = () => {
         onSubmit={(e) => {
           e.preventDefault();
         }}
-        enctype="multipart/form-data"
       >
         <div className="mb-3">
           <div className="form-file custom-file">
@@ -58,10 +60,14 @@ const Home = () => {
               multiple
               onChange={(e) => setFile(e.target.files[0])}
             />
-            <label className="form-file-label" for="image"></label>
+            <label className="form-file-label" htmlFor="image"></label>
           </div>
         </div>
-        <button type="submit" className="btn btn-success">
+        <button
+          type="submit"
+          className="btn btn-success"
+          onClick={handleUpload}
+        >
           Upload
         </button>
       </form>
