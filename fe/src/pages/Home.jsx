@@ -14,7 +14,7 @@ const Home = () => {
   const handleUpload = async () => {
     const formData = new FormData();
     formData.append("image", file);
-    const res = client.post("/upload", formData);
+    const res = await client.post("/upload", formData);
     console.log({ res });
   };
   return (
