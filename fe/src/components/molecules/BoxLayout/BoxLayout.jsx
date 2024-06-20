@@ -8,7 +8,7 @@ const BoxLayout = ({
 }) => {
   return (
     <div
-      className={`px-4 py-2 border min-h-[200px] rounded-md ${
+      className={`px-4 py-2 border min-h-[100px] rounded-md ${
         isFullWidth ? "flex-1" : ""
       }`}
     >

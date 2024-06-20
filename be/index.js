@@ -21,12 +21,12 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(
-  cors({
-    origin: '*',
-    credentials: true,
-  }),
-);
+// app.use(
+//   cors({
+//     origin: '*',
+//     credentials: true,
+//   }),
+// );
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
