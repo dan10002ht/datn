@@ -1,18 +1,11 @@
 import {v2 as cloudinary} from 'cloudinary';
-import {CloudinaryStorage} from 'multer-storage-cloudinary';
+import dotenv from 'dotenv';
+dotenv.config();
 
 cloudinary.config({
-  cloud_name: 'pin-generator',
-  api_key: '12345',
-  api_secret: '12345',
+  cloud_name: process.env.CLOUDINARY_CLOUDNAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const storage = new CloudinaryStorage({
-  cloudinary,
-  params: {
-    folder: 'CloudinaryImages',
-    allowedFormats: ['jpeg', 'png', 'jpg'],
-  },
-});
-
-export default storage;
+export default cloudinary;

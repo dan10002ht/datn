@@ -4,6 +4,7 @@ import timeRoutes from './timeRoutes';
 import logRoutes from './logRoutes';
 import cronRoutes from './cronRoutes';
 import tokenRoutes from './tokenRoutes';
+import uploadRoutes from './uploadRoutes';
 import {authenticateToken} from '../middlewares/auth';
 
 const router = new Router();
@@ -16,6 +17,7 @@ export default function route(app) {
     }
     return authenticateToken(req, res, next);
   });
+  router.use('/upload', uploadRoutes);
   router.use('/token', tokenRoutes);
   router.use('/cron', cronRoutes);
   router.use('/user', userRoutes);

@@ -1,5 +1,4 @@
-import { Button } from "antd";
-import React, { Fragment } from "react";
+import React from "react";
 
 const BoxLayout = ({
   children,
@@ -9,7 +8,9 @@ const BoxLayout = ({
 }) => {
   return (
     <div
-      className={`px-4 py-2 border rounded-md ${isFullWidth ? "flex-1" : ""}`}
+      className={`px-4 py-2 border min-h-[100px] rounded-md ${
+        isFullWidth ? "flex-1" : ""
+      }`}
     >
       <div className="text-xl font-semibold Request-Title__Container">
         {title}

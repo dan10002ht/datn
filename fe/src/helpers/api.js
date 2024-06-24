@@ -55,7 +55,6 @@ export async function api({
         "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
         Authorization: token,
         ...(options.headers || {}),
-        // "X-Auth-Token": idToken,
       },
       url,
       method,

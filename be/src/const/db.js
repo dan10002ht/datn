@@ -1,4 +1,3 @@
-// import serviceAccount from '../../serviceAccount.json';
 import dotenv from 'dotenv';
 dotenv.config();
 import * as admin from 'firebase-admin';
