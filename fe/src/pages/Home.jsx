@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import RequestBox from "../components/molecules/RequestBox";
 import HistoryBox from "../components/molecules/HistoryBox";
 import TimeChart from "../components/molecules/TimeChart";
