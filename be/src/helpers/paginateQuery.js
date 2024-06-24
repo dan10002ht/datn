@@ -16,6 +16,9 @@ export async function paginateQuery(queriedRef, collection, query = {}, selectFi
   if (query.sort) {
     queriedRef = queriedRef.orderBy('createdAt', query.sort);
   }
+  if (query.gender && query.gender !== 'all') {
+    queriedRef = queriedRef.where('gender', '==', query.gender);
+  }
   if (query.after) {
     const after = await collection.doc(query.after).get();
     queriedRef = queriedRef.startAfter(after);

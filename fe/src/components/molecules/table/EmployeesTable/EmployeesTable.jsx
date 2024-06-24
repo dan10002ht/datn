@@ -17,7 +17,7 @@ import useDebounce from "../../../../hooks/utils/useDebounce";
 const { RangePicker } = DatePicker;
 
 const EmployeesTable = () => {
-  const { data, handleRefetchByQuery, pagination, fetched } =
+  const { data, handleRefetchByQuery, pagination, fetched, loading } =
     useFetchWithPagination({
       apiUrl: "/user/list",
       defaultFetchFilter: {
@@ -25,6 +25,9 @@ const EmployeesTable = () => {
         sort: "desc",
       },
     });
+
+  const [gender, setGender] = useState("all");
+
   const [searchField, setSearchField] = useState("name");
   const [sort, setSort] = useState("desc");
   const [pageNum, setPageNum] = useState(1);
@@ -37,16 +40,34 @@ const EmployeesTable = () => {
       after: null,
       before: pagination.previousCursor,
       page: pageNum - 1,
+      searchText,
       sort,
+      gender,
     });
   };
+
+  const handleSelectGender = async (_gender) => {
+    setPageNum(1);
+    setGender(_gender);
+    await handleRefetchByQuery({
+      after: null,
+      before: null,
+      page: pageNum,
+      searchText,
+      sort,
+      gender: _gender,
+    });
+  };
+
   const handleNextPage = () => {
     setPageNum((prev) => prev + 1);
     return handleRefetchByQuery({
       after: pagination.nextCursor,
       before: null,
       page: pageNum + 1,
+      searchText,
       sort,
+      gender,
     });
   };
 
@@ -59,6 +80,7 @@ const EmployeesTable = () => {
       searchText: val,
       searchField: _searchField,
       sort,
+      gender,
     });
   };
 
@@ -71,6 +93,7 @@ const EmployeesTable = () => {
       page: pageNum,
       searchText,
       sort: val,
+      gender,
     });
   };
 
@@ -197,6 +220,7 @@ const EmployeesTable = () => {
         columns={columns}
         dataSource={data}
         pagination={false}
+        loading={loading}
         // pagination={{
         //   total: pagination.total,
         //   defaultPageSize: 10,

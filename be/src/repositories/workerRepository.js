@@ -27,7 +27,7 @@ export const getAll = async () => {
 };
 
 export const getDocByUserId = async (userId) => {
-  const docs = await collection.where('userId', '==', parseInt(userId)).limit(1).get();
+  const docs = await collection.where('userId', '==', userId).limit(1).get();
   const [doc] = docs.docs;
   return doc;
 };

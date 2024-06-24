@@ -2,21 +2,31 @@ import db from '../const/db';
 
 const collection = db.collection('cache');
 
+const fields = {
+  name: 'searchName',
+  userId: 'userId',
+};
+
 export const getCacheByType = async (
   type,
   search = '',
   isUpdateInformation = false,
   shouldFilter = false,
+  searchField = 'name',
+  gender = 'all',
 ) => {
   const cacheDocs = await collection.where('type', '==', type).limit(1).get();
   if (cacheDocs.size > 0) {
     const [doc] = cacheDocs.docs;
     const {dataJson} = doc.data();
-    const cacheData = JSON.parse(dataJson).filter(
-      (data) =>
-        (data?.searchName?.toLowerCase()?.includes(search?.toLowerCase()) || search === '') &&
-        (shouldFilter ? data.isUpdateInformation === isUpdateInformation : true),
-    );
+    const cacheData = JSON.parse(dataJson).filter((data) => {
+      const searchFilter =
+        (data?.[fields[searchField]]?.toLowerCase()?.includes(search?.toLowerCase()) ||
+          search === '') &&
+        (shouldFilter ? data.isUpdateInformation === isUpdateInformation : true);
+      if (gender === 'all') return searchFilter;
+      return searchFilter && data.gender === gender;
+    });
     return [cacheData, cacheDocs];
   }
   return [[], null];

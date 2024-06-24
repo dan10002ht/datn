@@ -63,6 +63,7 @@ const AddInformationModal = ({
               onChange={(e) => handleChangeData("phoneNumber", e.target.value)}
             />
             <DatePicker
+              style={{ minWidth: "120px" }}
               defaultValue={dayjs(
                 dayjs(new Date(data.createdAt)).format(dateFormat),
                 dateFormat
@@ -73,11 +74,26 @@ const AddInformationModal = ({
                 handleChangeData("dob", new Date(date.$d));
               }}
             />
+            <Select
+              placeholder="Giới tính"
+              value={data.gender}
+              options={[
+                { value: "male", label: "Nam" },
+                { value: "female", label: "Nữ" },
+              ]}
+              onChange={(value) => handleChangeData("gender", value)}
+            />
           </Flex>
+
           <Select
             placeholder="Bộ phận"
             value={data.department}
-            options={[{ value: "member", label: "Nhân viên" }]}
+            options={[
+              { value: "developer", label: "Lập trình viên" },
+              { value: "manager", label: "Quản lý" },
+              { value: "hr", label: "HR" },
+              { value: "tester", label: "Nhân viên kiểm thử" },
+            ]}
             onChange={(value) => handleChangeData("department", value)}
           />
         </Flex>
