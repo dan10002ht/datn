@@ -14,12 +14,12 @@ const Employees = () => {
     <>
       <div className="card h-100 employee-list">
         <div className="flex justify-between">
-          <h3 className="text-2xl font-bold mb-1">Quản lý nhân sự</h3>
+          <h3 className="mb-1 text-2xl font-bold">Quản lý nhân sự</h3>
           <div className="flex items-center gap-4">
-            <Button onClick={openModal}>Tạo mới</Button>
+            {/* <Button onClick={openModal}>Tạo mới</Button> */}
           </div>
         </div>
-        <div className="card-body h-100 p-0 d-flex flex-row">
+        <div className="flex-row p-0 card-body h-100 d-flex">
           <EmployeesTable />
         </div>
       </div>

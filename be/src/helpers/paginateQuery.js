@@ -13,6 +13,9 @@ export async function paginateQuery(queriedRef, collection, query = {}, selectFi
   let hasPre = false;
   let hasNext = false;
   const total = await countQueriedRef(queriedRef);
+  if (query.sort) {
+    queriedRef = queriedRef.orderBy('createdAt', query.sort);
+  }
   if (query.after) {
     const after = await collection.doc(query.after).get();
     queriedRef = queriedRef.startAfter(after);

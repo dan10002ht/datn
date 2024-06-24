@@ -116,6 +116,13 @@ export const getSearchUser = async (query, isUpdateInformation) => {
     const limit = parseInt(query.limitPerPage || 10);
     const pageNum = parseInt(page || 1);
     const [suggestions] = await getCacheByType(TYPE_USER, searchText, isUpdateInformation);
+    if (query.sort) {
+      suggestions.sort((a, b) =>
+        query.sort === 'desc'
+          ? new Date(b.createdAt) - new Date(a.createdAt)
+          : new Date(a.createdAt) - new Date(b.createdAt),
+      );
+    }
     const ids = suggestions.slice(limit * (pageNum - 1), limit * pageNum).map((x) => x.id);
     const data = await getByIds({collection, ids, selectDoc: true});
     const hasPre = pageNum > 1;

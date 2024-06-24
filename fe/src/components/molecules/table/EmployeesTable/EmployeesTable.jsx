@@ -1,4 +1,12 @@
-import { Flex, Input, Pagination, Table } from "antd";
+import {
+  DatePicker,
+  Flex,
+  Input,
+  Pagination,
+  Radio,
+  Select,
+  Table,
+} from "antd";
 import { useEffect, useMemo, useState } from "react";
 import useFetchWithPagination from "../../../../hooks/api/useFetchWithPagination";
 import dayjs from "dayjs";
@@ -6,14 +14,19 @@ import AddInformationModal from "../RequestTable/AddInformationModal";
 import DeleteInformationModal from "../../modals/DeleteInformationModal";
 import useDebounce from "../../../../hooks/utils/useDebounce";
 
+const { RangePicker } = DatePicker;
+
 const EmployeesTable = () => {
   const { data, handleRefetchByQuery, pagination, fetched } =
     useFetchWithPagination({
       apiUrl: "/user/list",
       defaultFetchFilter: {
         isUpdateInformation: true,
+        sort: "desc",
       },
     });
+  const [searchField, setSearchField] = useState("name");
+  const [sort, setSort] = useState("desc");
   const [pageNum, setPageNum] = useState(1);
   const [searchText, setSearchText] = useState("");
   const searchTextDebounce = useDebounce(searchText, 500);
@@ -24,6 +37,7 @@ const EmployeesTable = () => {
       after: null,
       before: pagination.previousCursor,
       page: pageNum - 1,
+      sort,
     });
   };
   const handleNextPage = () => {
@@ -32,16 +46,31 @@ const EmployeesTable = () => {
       after: pagination.nextCursor,
       before: null,
       page: pageNum + 1,
+      sort,
     });
   };
 
-  const handleSearch = async (val) => {
+  const handleSearch = async (val, _searchField = searchField) => {
     setPageNum(1);
     return handleRefetchByQuery({
       after: null,
       before: null,
       page: pageNum,
       searchText: val,
+      searchField: _searchField,
+      sort,
+    });
+  };
+
+  const handleSort = async (val) => {
+    setPageNum(1);
+    setSort(val);
+    await handleRefetchByQuery({
+      after: null,
+      before: null,
+      page: pageNum,
+      searchText,
+      sort: val,
     });
   };
 
@@ -64,7 +93,7 @@ const EmployeesTable = () => {
       {
         title: "Ngày sinh",
         dataIndex: "dob",
-        render: (val) => dayjs(val).format("MM/DD/YYYY"),
+        render: (val) => dayjs(val).format("DD/MM/YYYY"),
       },
       {
         title: "Số điện thoại",
@@ -114,10 +143,55 @@ const EmployeesTable = () => {
           {hasSelected ? `Selected ${selectedRowKeys.length} items` : ""}
         </span>
       </div>
-      <Input
+      {/* <Input
         placeholder="Nhập vào tên nhân viên"
         onChange={(e) => setSearchText(e.target.value)}
-      />
+      /> */}
+      <Flex wrap="wrap" gap="middle">
+        <Select
+          defaultValue="name"
+          style={{ width: 120 }}
+          onChange={(val) => {
+            setSearchField(val);
+            if (searchText.trim()) {
+              handleSearch(searchText, val);
+            }
+          }}
+          options={[
+            { value: "name", label: "Theo tên" },
+            { value: "userId", label: "Theo userId" },
+          ]}
+        />
+        <Input
+          style={{ maxWidth: "300px" }}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+        <Flex wrap="nowrap" gap="middle">
+          <Radio.Group
+            onChange={(e) => {
+              handleSort(e.target.value);
+            }}
+            defaultValue="desc"
+            buttonStyle="solid"
+          >
+            <Radio.Button value="desc">Giảm dần</Radio.Button>
+            <Radio.Button value="asc">Tăng dần</Radio.Button>
+          </Radio.Group>
+        </Flex>
+        <Flex wrap="nowrap" gap="middle">
+          <Radio.Group
+            onChange={(e) => {
+              handleSelectGender(e.target.value);
+            }}
+            defaultValue="all"
+            buttonStyle="solid"
+          >
+            <Radio.Button value="all">Tất cả</Radio.Button>
+            <Radio.Button value="male">Nam</Radio.Button>
+            <Radio.Button value="female">Nữ</Radio.Button>
+          </Radio.Group>
+        </Flex>
+      </Flex>
       <Table
         rowSelection={rowSelection}
         columns={columns}
