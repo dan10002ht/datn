@@ -20,7 +20,7 @@ const EmployeesTable = () => {
 
   const handlePreviousPage = () => {
     setPageNum((prev) => (prev === 1 ? prev : prev - 1));
-    handleRefetchByQuery({
+    return handleRefetchByQuery({
       after: null,
       before: pagination.previousCursor,
       page: pageNum - 1,
@@ -28,7 +28,7 @@ const EmployeesTable = () => {
   };
   const handleNextPage = () => {
     setPageNum((prev) => prev + 1);
-    handleRefetchByQuery({
+    return handleRefetchByQuery({
       after: pagination.nextCursor,
       before: null,
       page: pageNum + 1,
@@ -37,7 +37,7 @@ const EmployeesTable = () => {
 
   const handleSearch = async (val) => {
     setPageNum(1);
-    handleRefetchByQuery({
+    return handleRefetchByQuery({
       after: null,
       before: null,
       page: pageNum,
@@ -132,12 +132,12 @@ const EmployeesTable = () => {
         pageSize={10}
         total={pagination.total}
         pageSizeOptions={3}
-        onChange={(page) => {
+        onChange={async (page) => {
           if (page === pageNum + 1) {
-            handleNextPage();
+            await handleNextPage();
           }
           if (page === pageNum - 1) {
-            handlePreviousPage();
+            await handlePreviousPage();
           }
         }}
       />

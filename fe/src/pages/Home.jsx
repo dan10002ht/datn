@@ -15,7 +15,6 @@ const Home = () => {
     const formData = new FormData();
     formData.append("image", file);
     const res = await client.post("/upload", formData);
-    console.log({ res });
   };
   return (
     <>
@@ -24,11 +23,11 @@ const Home = () => {
       </div>
       <div className="flex gap-4 mb-6 Common-Wrapper">
         <div className="flex-1 Common-Left__Wrapper">
-          <div className="w-full mb-4 Common-Left__RequestWrapper ">
-            <RequestBox />
-          </div>
-          <div className="w-full Common-Left__History ">
+          <div className="w-full mb-4 Common-Left__History ">
             <HistoryBox />
+          </div>
+          <div className="w-full Common-Left__RequestWrapper ">
+            <RequestBox />
           </div>
         </div>
         <div className="Common-Right__Wrapper w-[50%] px-8 rounded-md border">

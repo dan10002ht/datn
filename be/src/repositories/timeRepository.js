@@ -13,9 +13,9 @@ export const TYPE_OUT = 'out';
 export const TYPE_IN = 'in';
 
 export const create = async (data) => {
-  const {userId: stringUserId} = data;
-  const userId = parseInt(stringUserId);
+  const {userId: _userId, url} = data;
   const startDateOfToday = getStartDate();
+  const userId = `${_userId}`;
   const docs = await collection
     .where('userId', '==', userId)
     .where('checkInDate', '>=', startDateOfToday)
@@ -25,15 +25,20 @@ export const create = async (data) => {
   const [doc] = docs.docs;
   if (!doc || !doc.exists) {
     return await collection.add({
-      ...data,
+      userId,
       checkInDate: currentDate,
       checkInTime: prepareSeconds(currentDate),
+      checkInUrl: url,
       checkOutDate: currentDate,
       checkOutTime: prepareSeconds(currentDate),
       createdAt: currentDate,
     });
   }
-  return doc.ref.update({checkOutDate: currentDate, checkOutTime: prepareSeconds(currentDate)});
+  return doc.ref.update({
+    checkOutDate: currentDate,
+    checkOutTime: prepareSeconds(currentDate),
+    checkOutUrl: url,
+  });
 };
 
 export const getRecordsBetweenDate = async ({fromDate, toDate}) => {

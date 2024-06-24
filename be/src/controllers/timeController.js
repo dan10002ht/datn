@@ -6,11 +6,14 @@ import {
   getMonthlyRecords,
   getSingleRecordInRange,
 } from '../repositories/timeRepository';
+import {handleUpload} from '../services/cloudinaryServices';
 
 export const mark = async (req, res) => {
   try {
+    const {file} = req;
+    const response = await handleUpload(file);
     const {userId} = req.params;
-    await create({userId});
+    await create({userId, url: response.url});
     await generateLog({userId, type: 'TIME_KEEP'});
     return res.status(200).json({success: true});
   } catch (e) {

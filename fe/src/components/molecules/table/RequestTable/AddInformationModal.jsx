@@ -69,9 +69,8 @@ const AddInformationModal = ({
               )}
               format={dateFormat}
               placeholder="Ngày sinh"
-              onChange={(date, dateString) => {
-                handleChangeData("dob", new Date(dateString));
-                console.log({ date, dateString });
+              onChange={(date) => {
+                handleChangeData("dob", new Date(date.$d));
               }}
             />
           </Flex>

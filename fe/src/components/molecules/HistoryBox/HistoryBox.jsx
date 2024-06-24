@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import useFetchWithPagination from "../../../hooks/api/useFetchWithPagination";
 import useFetchApi from "../../../hooks/api/useFetchApi";
 import { Skeleton } from "antd";
+import generateLog from "../../../helpers/generateLog";
 
 const HistoryBox = () => {
   const {
@@ -20,8 +21,9 @@ const HistoryBox = () => {
         !loading &&
         logs.map((log) => (
           <div className="mb-1" key={log.id}>
-            {log.name} chấm công vào{" "}
-            {dayjs(log.createdAt).format("hh:mm:ss DD/MM/YYYY")}
+            {generateLog(log)}
+            {/* {log.name} chấm công vào{" "}
+            {dayjs(log.createdAt).format("hh:mm:ss DD/MM/YYYY")} */}
           </div>
         ))}
     </BoxLayout>
