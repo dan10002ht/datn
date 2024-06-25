@@ -1,6 +1,6 @@
 import formatDateFields from './formatDateFields';
 
-const DEFAULT_PAGE_SIZE = 10;
+const DEFAULT_PAGE_SIZE = 100;
 /**
  * @param {Query} queriedRef
  * @param {CollectionReference} collection

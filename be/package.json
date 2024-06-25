@@ -31,6 +31,7 @@
     "cloudinary": "^2.2.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "excel4node": "^1.8.2",
     "express": "^4.19.2",
     "firebase": "^10.11.1",
     "firebase-admin": "^12.1.0",

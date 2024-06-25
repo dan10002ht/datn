@@ -1,4 +1,5 @@
 import db from '../const/db';
+import convertVietnameseToEnglish from '../helpers/convertVietnameseToEnglish';
 
 const collection = db.collection('cache');
 
@@ -21,7 +22,9 @@ export const getCacheByType = async (
     const {dataJson} = doc.data();
     const cacheData = JSON.parse(dataJson).filter((data) => {
       const searchFilter =
-        (data?.[fields[searchField]]?.toLowerCase()?.includes(search?.toLowerCase()) ||
+        (data?.[fields[searchField]]
+          ?.toLowerCase()
+          ?.includes(convertVietnameseToEnglish(search?.toLowerCase())) ||
           search === '') &&
         (shouldFilter ? data.isUpdateInformation === isUpdateInformation : true);
       if (gender === 'all') return searchFilter;

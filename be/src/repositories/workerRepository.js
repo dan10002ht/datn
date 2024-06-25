@@ -76,7 +76,7 @@ export const bulkDelete = async ({ids}) => {
   return await Promise.all(ids.map((id) => collection.doc(id).delete()));
 };
 
-export const getUsersWithTimeKeepingData = async ({selectedDate, period, query}) => {
+export const getUsersWithTimeKeepingData = async ({selectedDate, period, query = {}}) => {
   let userRef = collection;
   const {searchText} = query;
   const {
@@ -89,7 +89,6 @@ export const getUsersWithTimeKeepingData = async ({selectedDate, period, query})
   } = searchText && searchText.trim() !== ''
     ? await getSearchUser(query, true)
     : await paginateQuery(userRef, collection, query);
-  console.log({data});
   const timeKeepingData = await Promise.all(
     data.map(async ({userId, name}) => ({
       userData: {

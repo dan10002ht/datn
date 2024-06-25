@@ -5,21 +5,19 @@ import TimeChart from "../components/molecules/TimeChart";
 import WhoWorking from "../components/molecules/WhoWorking";
 import WorkingTime from "../components/molecules/WorkingTime";
 import WorkerCount from "../components/molecules/WorkerCount";
-import { Typography } from "antd";
+import { Button, Typography } from "antd";
 import { client } from "../helpers/api";
+import useFetchApi from "../hooks/api/useFetchApi";
 
 const Home = () => {
-  const [file, setFile] = useState();
-
-  const handleUpload = async () => {
-    const formData = new FormData();
-    formData.append("image", file);
-    const res = await client.post("/upload", formData);
-  };
+  const { data, loading, fetched } = useFetchApi({
+    url: "/logs/excel",
+  });
   return (
     <>
       <div className="flex justify-between mb-10">
         <h3 className="mb-1 text-2xl font-bold">Chấm công</h3>
+        <Button type="primary">Xuất file excel</Button>
       </div>
       <div className="flex gap-4 mb-6 Common-Wrapper">
         <div className="flex-1 Common-Left__Wrapper">
@@ -44,7 +42,7 @@ const Home = () => {
         <WorkingTime />
         <WorkerCount />
       </div>
-      <form
+      {/* <form
         onSubmit={(e) => {
           e.preventDefault();
         }}
@@ -69,7 +67,7 @@ const Home = () => {
         >
           Upload
         </button>
-      </form>
+      </form> */}
     </>
   );
 };
