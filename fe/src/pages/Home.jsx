@@ -10,9 +10,9 @@ import { client } from "../helpers/api";
 import useFetchApi from "../hooks/api/useFetchApi";
 
 const Home = () => {
-  const { data, loading, fetched } = useFetchApi({
-    url: "/logs/excel",
-  });
+  // const { data, loading, fetched } = useFetchApi({
+  //   url: "/logs/excel",
+  // });
   return (
     <>
       <div className="flex justify-between mb-10">
