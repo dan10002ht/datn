@@ -7,6 +7,7 @@ import { LoadingOutlined, SearchOutlined } from "@ant-design/icons";
 import useFetchApi from "../../../../hooks/api/useFetchApi";
 import { getStartAndEndOfPeriod, prepareHour } from "../../../../helpers/time";
 import useDebounce from "../../../../hooks/utils/useDebounce";
+import TimeKeepingModal from "./TimekeepingModal";
 
 const prepareUtcDate = (date = new Date()) => {
   const d = new Date(date);
@@ -130,21 +131,20 @@ const TimeKeepingTable = () => {
               key={index}
               label={columnLabels[index]}
               cellRenderer={({ columnIndex, rowData }) => {
-                const checkInDate = prepareHour(
-                  rowData.timeData[columnIndex - 1]?.checkInDate
-                );
-                const checkOutDate = prepareHour(
-                  rowData.timeData[columnIndex - 1]?.checkOutDate
-                );
+                const cellData = rowData.timeData[columnIndex - 1];
+                const checkInDate = prepareHour(cellData?.checkInDate);
+                const checkOutDate = prepareHour(cellData?.checkOutDate);
 
                 return (
-                  <div
-                    className="flex justify-center px-2 w-[100%] h-[100%] items-center flex-wrap"
-                    style={{ gap: "2px" }}
-                  >
-                    <span>{checkInDate} </span> <span>-</span>
-                    <span>{checkOutDate}</span>
-                  </div>
+                  <TimeKeepingModal cellData={cellData}>
+                    <div
+                      className="flex justify-center px-2 w-[100%] h-[100%] items-center flex-wrap"
+                      style={{ gap: "2px" }}
+                    >
+                      <span>{checkInDate} </span> <span>-</span>
+                      <span>{checkOutDate}</span>
+                    </div>
+                  </TimeKeepingModal>
                 );
               }}
             />
