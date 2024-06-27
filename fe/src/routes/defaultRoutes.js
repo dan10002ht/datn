@@ -3,6 +3,7 @@ import Home from "../pages/Home";
 import TimeKeeping from "../pages/TimeKeeping";
 import NotFound from "../pages/NotFound";
 import Request from "../pages/Request";
+import Login from "../pages/Login/Login";
 
 export default [
   {
@@ -21,6 +22,10 @@ export default [
     path: "/request",
     component: Request,
   },
+  // {
+  //   path: "/login",
+  //   component: Login,
+  // },
   {
     path: "*",
     component: NotFound,

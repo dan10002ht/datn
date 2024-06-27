@@ -11,7 +11,7 @@ client.interceptors.request.use((config) => {
   return config;
 });
 
-const handleGetToken = async () => {
+export const handleGetToken = async () => {
   const data = await api({
     url: "/token",
     method: "POST",
@@ -21,18 +21,26 @@ const handleGetToken = async () => {
   return data.token;
 };
 
+export const login = async ({ username, password }) => {
+  const data = await api({
+    url: "/login",
+    method: "POST",
+    data: { username, password },
+  });
+  if (data.success) localStorage.setItem("token", data.token);
+  return data;
+};
+
 client.interceptors.response.use(
   (response) => {
     return response;
   },
   (error) => {
     console.log({ error });
-    const originalRequest = error.config;
+    // const originalRequest = error.config;
     if ([401, 403].includes(error.response.status)) {
-      handleGetToken().then((token) => {
-        originalRequest.headers["Authorization"] = token;
-        return axios(originalRequest);
-      });
+      localStorage.removeItem("token");
+      window.location.href = "/login";
     }
     return error;
   }

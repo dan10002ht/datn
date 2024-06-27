@@ -1,15 +1,29 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+} from "react-router-dom";
 import defaultRoutes from "./defaultRoutes";
 import AppLayout from "../layouts/AppLayout/AppLayout";
+import Login from "../pages/Login/Login";
 
 const Routing = ({ prefix = "" }) => {
   const routeGroups = [...defaultRoutes];
 
   return (
     <Router>
-      <AppLayout>
-        <Routes>
+      <Routes>
+        <Route path="/login" Component={Login}></Route>
+
+        <Route
+          element={
+            <AppLayout>
+              <Outlet />
+            </AppLayout>
+          }
+        >
           {routeGroups.map((group, index) => (
             <Route
               key={index}
@@ -17,8 +31,8 @@ const Routing = ({ prefix = "" }) => {
               Component={group.component}
             ></Route>
           ))}
-        </Routes>
-      </AppLayout>
+        </Route>
+      </Routes>
     </Router>
   );
 };

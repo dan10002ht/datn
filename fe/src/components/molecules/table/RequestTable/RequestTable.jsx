@@ -25,18 +25,18 @@ const RequestTable = () => {
         width: "10%",
       },
       {
-        title: "Ma nhan vien",
+        title: "Mã nhân viên",
         dataIndex: "userId",
         width: "40%",
       },
       {
-        title: "Thoi gian tao",
+        title: "Thời gian tạo",
         dataIndex: "createdAt",
         width: "40%",
         render: (val) => dayjs(val).format("HH:mm MM/DD/YYYY"),
       },
       {
-        title: "Trang thai",
+        title: "Trạng thái",
         dataIndex: "isUpdateInformation",
         render: (_, rowData) => (
           <AddInformationModal
