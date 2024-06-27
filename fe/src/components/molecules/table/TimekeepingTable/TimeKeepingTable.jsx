@@ -138,7 +138,7 @@ const TimeKeepingTable = () => {
                 return (
                   <TimeKeepingModal cellData={cellData}>
                     <div
-                      className="flex justify-center px-2 w-[100%] h-[100%] items-center flex-wrap"
+                      className="flex justify-center px-2 w-[100%] h-[100%] items-center flex-wrap cursor-pointer"
                       style={{ gap: "2px" }}
                     >
                       <span>{checkInDate} </span> <span>-</span>

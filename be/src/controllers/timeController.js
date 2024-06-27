@@ -6,6 +6,7 @@ import {
   getMonthlyRecords,
   getSingleRecordInRange,
 } from '../repositories/timeRepository';
+import {getUserData} from '../repositories/workerRepository';
 import {handleUpload} from '../services/cloudinaryServices';
 
 export const mark = async (req, res) => {
@@ -13,8 +14,8 @@ export const mark = async (req, res) => {
     const {file} = req;
     const response = await handleUpload(file);
     const {userId} = req.params;
-    await create({userId, url: response.url});
-    await generateLog({userId, type: 'TIME_KEEP'});
+    const userData = await Promise.all([getUserData(userId), create({userId, url: response.url})]);
+    await generateLog({userId, type: 'TIME_KEEP', name: userData.name});
     return res.status(200).json({success: true});
   } catch (e) {
     console.log(e.message);

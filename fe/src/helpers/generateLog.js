@@ -10,6 +10,9 @@ export default function generateLog(log) {
     case "WORKER_REQUEST":
       message = `Yêu cầu thêm nhân viên ${log.userId}`;
       break;
+    case "TIME_KEEP":
+      message = `Nhân viên ${log.userId} chấm công`;
+      break;
   }
   return message + " " + "vào" + " " + date;
 }
