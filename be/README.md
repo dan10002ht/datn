@@ -48,9 +48,9 @@
 ```
 
 | Query          | Type     | Description                                                                             |
-| :------------- | :------- | :-------------------------------------------------------------------------------------- | ----- | ---- |
+| :------------- | :------- | :-------------------------------------------------------------------------------------- |
 | `selectedDate` | `string` | **Required**. selected date for getting information of week/month of that selected date |
-| `period`       | `string` | **Required**. "week                                                                     | month | day" |
+| `period`       | `string` | **Required**. "week/month/day"                                                          |
 
 #### Get user data
 
