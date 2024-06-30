@@ -10,6 +10,17 @@
 | :-------- | :------- | :-------------------------- |
 | `apiKey`  | `string` | **Required**. datn-dan-tran |
 
+#### Login to get token from backend
+
+```http
+  POST /api/login
+```
+
+| Parameter  | Type     | Description               |
+| :--------- | :------- | :------------------------ |
+| `username` | `string` | **Required**. danlaanh202 |
+| `password` | `string` | **Required**. danlaanh202 |
+
 #### Generate userId via raspberry
 
 ```http
