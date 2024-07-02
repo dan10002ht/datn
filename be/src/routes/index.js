@@ -37,14 +37,17 @@ export default function route(app) {
       });
       // res.cookie('token', token, {httpOnly: true});
       return res.status(200).json({success: true, token});
-      // return res.status(200).json({success: true, data: });
     } catch (e) {
       return res.status(500).json({success: false, message: 'Error when login'});
     }
   });
+  // for mocking upload images
   router.use('/upload', uploadRoutes);
+  // for get token after token is expired or first login
   router.use('/token', tokenRoutes);
+  // for get cron job routes
   router.use('/cron', cronRoutes);
+
   router.use('/user', userRoutes);
   router.use('/time', timeRoutes);
   router.use('/logs', logRoutes);

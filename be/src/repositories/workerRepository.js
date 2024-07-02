@@ -12,7 +12,7 @@ import {getPeriodTimeData} from './timeRepository';
 const collection = db.collection('worker');
 
 export const isUserExisted = async (userId) => {
-  const docs = await collection.where('userId', '==', parseInt(userId)).limit(1).get();
+  const docs = await collection.where('userId', '==', userId).limit(1).get();
   return !docs.empty;
 };
 

@@ -1,4 +1,4 @@
-import { generateLog } from '../repositories/logRepository';
+import {generateLog} from '../repositories/logRepository';
 import {
   create,
   updateWorkerByUserId,
@@ -33,7 +33,7 @@ export const updateWorkerData = async (req, res) => {
   try {
     const {userId} = req.params;
     const data = req.body;
-    await updateWorkerByUserId({userId, data});
+    await updateWorkerByUserId({userId: `${userId}`, data});
     await generateLog({userId, type: 'UPDATE_WORKER_DATA', ...data});
     return res.status(200).json({success: true});
   } catch (e) {
