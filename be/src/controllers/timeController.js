@@ -11,8 +11,8 @@ import {handleUpload} from '../services/cloudinaryServices';
 
 export const mark = async (req, res) => {
   try {
-    const {file} = req;
-    const response = await handleUpload(file);
+    const {image} = req.body;
+    const response = await handleUpload(image);
     const {userId} = req.params;
     const [userData] = await Promise.all([
       getUserData(userId),

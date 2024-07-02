@@ -11,10 +11,8 @@ export const upload = Multer({storage});
  * @param {*} file
  * @returns
  */
-export const handleUpload = async (file) => {
-  if (!file) return {url: ''};
-  const b64 = Buffer.from(file.buffer).toString('base64');
-  const dataURI = 'data:' + file.mimetype + ';base64,' + b64;
+export const handleUpload = async (dataURI) => {
+  if (!dataURI) return {url: ''};
   return await cloudinary.uploader.upload(dataURI, {
     resource_type: 'auto',
   });
