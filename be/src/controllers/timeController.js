@@ -14,7 +14,10 @@ export const mark = async (req, res) => {
     const {file} = req;
     const response = await handleUpload(file);
     const {userId} = req.params;
-    const userData = await Promise.all([getUserData(userId), create({userId, url: response.url})]);
+    const [userData] = await Promise.all([
+      getUserData(userId),
+      create({userId, url: response.url}),
+    ]);
     await generateLog({userId, type: 'TIME_KEEP', name: userData.name});
     return res.status(200).json({success: true});
   } catch (e) {
