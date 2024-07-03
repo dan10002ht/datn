@@ -3,6 +3,11 @@ import {getUsersWithTimeKeepingData} from '../repositories/workerRepository';
 import {getLabels} from '../helpers/prepareTitle';
 import dayjs from 'dayjs';
 
+const formatDate = (date) => {
+  const currentDate = new Date(date);
+  return new Date(currentDate.setHours(currentDate.getHours() + 7));
+};
+
 export const exportExcelFile = async (req, res) => {
   try {
     const {previous = 0} = req.params;
@@ -24,10 +29,10 @@ export const exportExcelFile = async (req, res) => {
         console.log({time});
         let cellString = '';
         if (time.checkInDate) {
-          cellString = dayjs(new Date(time.checkInDate)).format('HH:mm');
+          cellString = dayjs(formatDate(time.checkInDate)).format('HH:mm');
         }
         if (time.checkOutDate) {
-          cellString += `-${dayjs(new Date(time.checkOutDate)).format('HH:mm')}`;
+          cellString += `-${dayjs(formatDate(time.checkOutDate)).format('HH:mm')}`;
         }
         // const style = wb.createStyle({
         //   font: {
