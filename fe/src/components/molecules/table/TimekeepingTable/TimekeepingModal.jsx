@@ -53,9 +53,7 @@ const TimeKeepingModal = ({ children, cellData }) => {
               <span>{checkInDate}</span>
             </div>
             {checkInDate !== "X" && (
-              <div>
-                {checkInUrl ? "Chấm công khuôn mặt" : "Chấm công vân tay"}
-              </div>
+              <div>{checkInUrl ? "Chấm công" : "Chưa chấm công"}</div>
             )}
             {checkInUrl && (
               <div>
@@ -70,9 +68,7 @@ const TimeKeepingModal = ({ children, cellData }) => {
               <span>{checkOutDate}</span>
             </div>
             {checkOutDate !== "X" && (
-              <div>
-                {checkOutUrl ? "Chấm công khuôn mặt" : "Chấm công vân tay"}
-              </div>
+              <div>{checkOutUrl ? "Chấm công" : "Chưa chấm công"}</div>
             )}
             {checkOutUrl && (
               <div>

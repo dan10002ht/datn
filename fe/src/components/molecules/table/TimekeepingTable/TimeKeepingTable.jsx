@@ -68,6 +68,8 @@ const TimeKeepingTable = () => {
 
   const columnLabels = getLabels({ period: dateType, date: selectedDate });
 
+  const showData = data.filter((x) => x.userData.name);
+
   return (
     <div ref={ref}>
       <div className="flex items-center my-3 gap-x-2">
@@ -106,8 +108,8 @@ const TimeKeepingTable = () => {
           headerHeight={60}
           rowHeight={dateType === "week" ? 60 : 80}
           autoHeight
-          rowCount={data.length}
-          rowGetter={({ index }) => data[index]}
+          rowCount={showData.length}
+          rowGetter={({ index }) => showData[index]}
         >
           <Column
             label={
@@ -125,30 +127,32 @@ const TimeKeepingTable = () => {
             )}
             width={150}
           />
-          {new Array(data[0]?.timeData.length).fill(null).map((x, index) => (
-            <Column
-              width={(width - 150) / data[0]?.timeData.length}
-              key={index}
-              label={columnLabels[index]}
-              cellRenderer={({ columnIndex, rowData }) => {
-                const cellData = rowData.timeData[columnIndex - 1];
-                const checkInDate = prepareHour(cellData?.checkInDate);
-                const checkOutDate = prepareHour(cellData?.checkOutDate);
+          {new Array(showData[0]?.timeData.length)
+            .fill(null)
+            .map((x, index) => (
+              <Column
+                width={(width - 150) / showData[0]?.timeData.length}
+                key={index}
+                label={columnLabels[index]}
+                cellRenderer={({ columnIndex, rowData }) => {
+                  const cellData = rowData.timeData[columnIndex - 1];
+                  const checkInDate = prepareHour(cellData?.checkInDate);
+                  const checkOutDate = prepareHour(cellData?.checkOutDate);
 
-                return (
-                  <TimeKeepingModal cellData={cellData}>
-                    <div
-                      className="flex justify-center px-2 w-[100%] h-[100%] items-center flex-wrap cursor-pointer"
-                      style={{ gap: "2px" }}
-                    >
-                      <span>{checkInDate} </span> <span>-</span>
-                      <span>{checkOutDate}</span>
-                    </div>
-                  </TimeKeepingModal>
-                );
-              }}
-            />
-          ))}
+                  return (
+                    <TimeKeepingModal cellData={cellData}>
+                      <div
+                        className="flex justify-center px-2 w-[100%] h-[100%] items-center flex-wrap cursor-pointer"
+                        style={{ gap: "2px" }}
+                      >
+                        <span>{checkInDate} </span> <span>-</span>
+                        <span>{checkOutDate}</span>
+                      </div>
+                    </TimeKeepingModal>
+                  );
+                }}
+              />
+            ))}
         </Table>
       )}
     </div>
