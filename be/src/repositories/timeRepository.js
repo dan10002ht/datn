@@ -46,6 +46,10 @@ export const getRecordsBetweenDate = async ({fromDate, toDate}) => {
     .where('createdAt', '>=', fromDate)
     .where('createdAt', '<=', toDate)
     .get();
+  if (docs.empty) {
+    return [];
+  }
+  console.log('here');
   return docs.docs.map((doc) => prepareDoc({doc}));
 };
 
@@ -145,5 +149,33 @@ export const getMonthlyRecords = async () => {
 };
 
 export const getHours = async (period = 'month') => {
-  const {fromDate, toDate} = getStartAndEndOfPeriod({date: new Date(), period});
+  const previousDate =
+    period === 'week'
+      ? new Date(new Date().setDate(new Date().getDate() - 7))
+      : new Date(new Date().setMonth(new Date().getMonth() - 1));
+  const {fromDate, toDate} = getStartAndEndOfPeriod({date: getStartDate(), period});
+  const {fromDate: previousFromDate, toDate: previousToDate} = getStartAndEndOfPeriod({
+    date: getStartDate(previousDate),
+    period,
+  });
+  const [data, previousData] = await Promise.all([
+    getRecordsBetweenDate({fromDate, toDate}),
+    getRecordsBetweenDate({fromDate: previousFromDate, toDate: previousToDate}),
+  ]);
+  const currentHours = getWorkingHours(data);
+  const previousHours = getWorkingHours(previousData);
+  return {currentHours, previousHours};
+};
+
+const getWorkingHours = (data) => {
+  console.log({data});
+  return (
+    data.reduce((acc, record) => {
+      const {checkInTime, checkOutTime} = record;
+      const inTime = Math.max(8 * HOUR, checkInTime);
+      const outTime = Math.min(17.5 * HOUR, checkOutTime);
+      const workingHours = outTime - inTime;
+      return acc + workingHours;
+    }, 0) / HOUR
+  );
 };
