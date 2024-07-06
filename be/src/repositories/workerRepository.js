@@ -34,6 +34,9 @@ export const getDocByUserId = async (userId) => {
 
 export const getUserData = async (userId) => {
   const doc = await getDocByUserId(userId);
+  if (!doc.exists) {
+    throw new Error('Invalid user');
+  }
   return prepareDoc({doc});
 };
 
