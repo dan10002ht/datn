@@ -60,32 +60,6 @@ const Home = () => {
         <WorkingTime />
         <WorkerCount />
       </div>
-      {/* <form
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
-        <div className="mb-3">
-          <div className="form-file custom-file">
-            <input
-              className="form-control"
-              type="file"
-              id="formFile"
-              name="image"
-              multiple
-              onChange={(e) => setFile(e.target.files[0])}
-            />
-            <label className="form-file-label" htmlFor="image"></label>
-          </div>
-        </div>
-        <button
-          type="submit"
-          className="btn btn-success"
-          onClick={handleUpload}
-        >
-          Upload
-        </button>
-      </form> */}
     </>
   );
 };

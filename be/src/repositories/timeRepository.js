@@ -114,7 +114,7 @@ export const getDailyRecords = async () => {
   return {
     inTimeCount,
     lateTimeCount,
-    nonInCount: workersAmount - inTimeCount - lateTimeCount,
+    nonInCount: Math.max(workersAmount - inTimeCount - lateTimeCount, 0),
   };
 };
 
@@ -144,7 +144,7 @@ export const getMonthlyRecords = async () => {
   return {
     inTimeCount,
     lateTimeCount,
-    nonInCount: workersAmount - inTimeCount - lateTimeCount,
+    nonInCount: Math.max(workersAmount - inTimeCount - lateTimeCount, 0),
   };
 };
 

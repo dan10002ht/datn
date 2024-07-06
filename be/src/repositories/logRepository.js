@@ -13,7 +13,7 @@ export const getLogs = async () => {
   return await Promise.all(
     docs.docs.map(async (doc) => {
       const data = prepareDoc({doc});
-      const userData = await getUserData(data.userId);
+      const userData = await getUserData(data.userId, true);
       return {...userData, ...data};
     }),
   );

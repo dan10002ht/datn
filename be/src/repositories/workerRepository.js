@@ -32,9 +32,9 @@ export const getDocByUserId = async (userId) => {
   return doc;
 };
 
-export const getUserData = async (userId) => {
+export const getUserData = async (userId, fromLog = false) => {
   const doc = await getDocByUserId(userId);
-  if (!doc) {
+  if (!doc && !fromLog) {
     throw new Error('Invalid user');
   }
   return prepareDoc({doc});
